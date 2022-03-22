@@ -50,6 +50,50 @@ public abstract class AbstractDataAcces<T> implements Serializable{
         
     }
     
+    public void modificar(T modificacion) throws IllegalArgumentException, IllegalStateException{
+        
+        if(modificacion!=null){
+            EntityManager em = null;
+            try{
+                em = getEntityManager();
+            }catch(Exception e){
+                throw new IllegalStateException("No se puede obtener persistencia");
+            }
+            if(em!=null){
+                try{
+                    em.merge(modificacion);
+                    return;
+                }catch(Exception e){
+                    throw new IllegalStateException("El registro no se pudo modificar",e);
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+        
+    }
+    
+    public void eliminar(T id) throws IllegalArgumentException, IllegalStateException{
+        
+        if(id!=null){
+            EntityManager em = null;
+            try{
+                em = getEntityManager();
+            }catch(Exception e){
+                throw new IllegalStateException("No se puede obtener persistencia");
+            }
+            if(em!=null){
+                try{
+                    em.remove(em.merge(id));
+                    return;
+                }catch(Exception e){
+                    throw new IllegalStateException("El registro no se pudo eliminar",e);
+                }
+            }
+        }
+        throw new IllegalArgumentException();
+        
+    }
+    
     public T findById(final Object id) throws IllegalArgumentException, IllegalStateException{
         if(id!=null){
             EntityManager em = null;
