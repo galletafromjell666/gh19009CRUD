@@ -5,6 +5,7 @@
  */
 package ues.pruebacrud.controller;
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,61 +27,132 @@ public class ControllerEstadoTest {
     @org.junit.jupiter.api.Test
     public void testCrear() throws Exception {
         System.out.println("crear");
-        Estado nuevo = new Estado();
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        Date fecha = new Date();
+        
+        Estado esperado = new Estado(1,"nuevo",fecha,"ninguna");
         ControllerEstado cut = new ControllerEstado();
         assertThrows(IllegalArgumentException.class, () ->{
             cut.crear(null);
         });
-        assertThrows(IllegalArgumentException.class, () ->{
-            cut.crear(nuevo);
+        assertThrows(IllegalStateException.class, () ->{
+            cut.crear(esperado);
         });
-        EntityManager mockEM = Mockito.mock(EntityManager.class);
+
         cut.em = mockEM;
-        cut.crear(nuevo);
-        //EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        //ControllerEstado instance = (ControllerEstado)container.getContext().lookup("java:global/classes/ControllerEstado");
-        //instance.crear(nuevo);
-        //container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+        cut.crear(esperado);
+        
+        ControllerEstado espia = Mockito.spy(ControllerEstado.class);
+        espia.em = mockEM;
+        
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.crear(esperado);
+        } catch (Exception e) {
+        }
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
+
     }
 
     /**
      * Test of modificar method, of class ControllerEstado.
      */
     
-    /**@org.junit.jupiter.api.Test
+    @org.junit.jupiter.api.Test
     public void testModificar() throws Exception {
         System.out.println("modificar");
-        Estado modificacion = null;
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        Date fecha = new Date();
         
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+        Estado esperado = new Estado(1,"nuevo",fecha,"ninguna");
+        ControllerEstado cut = new ControllerEstado();
+        assertThrows(IllegalArgumentException.class, () ->{
+            cut.modificar(null);
+        });
+        assertThrows(IllegalStateException.class, () ->{
+            cut.modificar(esperado);
+        });
+
+        cut.em = mockEM;
+        cut.modificar(esperado);
+        
+        ControllerEstado espia = Mockito.spy(ControllerEstado.class);
+        espia.em = mockEM;
+        
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.modificar(esperado);
+        } catch (Exception e) {
+        }
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
+    }
 
     /**
      * Test of eliminar method, of class ControllerEstado.
      */
-    /**@org.junit.jupiter.api.Test
+    @org.junit.jupiter.api.Test
     public void testEliminar() throws Exception {
-        System.out.println("eliminar");
-        Estado id = null;
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        Date fecha = new Date();
         
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+        Estado esperado = new Estado(1,"nuevo",fecha,"ninguna");
+        ControllerEstado cut = new ControllerEstado();
+        assertThrows(IllegalArgumentException.class, () ->{
+            cut.eliminar(null);
+        });
+        assertThrows(IllegalStateException.class, () ->{
+            cut.eliminar(esperado);
+        });
+
+        cut.em = mockEM;
+        cut.eliminar(esperado);
+        
+        ControllerEstado espia = Mockito.spy(ControllerEstado.class);
+        espia.em = mockEM;
+        
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.eliminar(esperado);
+        } catch (Exception e) {
+        }
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
+    }
 
     /**
      * Test of findById method, of class ControllerEstado.
      */
-    /**@org.junit.jupiter.api.Test
+    @org.junit.jupiter.api.Test
     public void testFindById() throws Exception {
         System.out.println("findById");
-        Object id = null;
+        Integer id = 1;
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
         
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+        ControllerEstado cut = new ControllerEstado();
+        Estado esperado = new Estado();
+        Mockito.when(mockEM.find(Estado.class, id)).thenReturn(esperado);
+        assertThrows(IllegalArgumentException.class, ()->{
+            cut.findById(null);
+        });
+        assertThrows(IllegalStateException.class, ()->{
+            cut.findById(id);
+        });
+        cut.em = mockEM;
+        Estado encontrado = cut.findById(id);
+        assertNotNull(encontrado);
+        assertEquals(esperado, encontrado);
+        
+        ControllerEstado espia = Mockito.spy(ControllerEstado.class);
+        espia.em = mockEM;
+        
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.findById(id);
+        } catch (Exception e) {
+        }
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
+        
+        
+    }
 
     /**
      * Test of findAll method, of class ControllerEstado.

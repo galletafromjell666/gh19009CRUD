@@ -33,61 +33,51 @@ public abstract class AbstractDataAcces<T> implements Serializable{
         if(nuevo!=null){
             EntityManager em = null;
             try{
-                em = getEntityManager();
+                em = this.getEntityManager();
             }catch(Exception e){
-                throw new IllegalStateException("No se puede obtener persistencia");
             }
             if(em!=null){
-                try{
-                    em.persist(nuevo);
-                    return;
-                }catch(Exception e){
-                    throw new IllegalStateException("El registro no se pudo almacenar",e);
-                }
+                em.persist(nuevo);
+                return;
+            }else{
+                throw new IllegalStateException("El registro no se pudo almacenar");
+            }
+        }
+        throw new IllegalArgumentException();      
+    }
+    
+    public void modificar(T registro) throws IllegalArgumentException, IllegalStateException{
+        
+        if(registro!=null){
+            EntityManager em = null;
+            try{
+                em = this.getEntityManager();
+            }catch(Exception e){
+            }
+            if(em!=null){
+                em.merge(registro);
+                return;
+            }else{
+                throw new IllegalStateException("El registro no se pudo modificar");
             }
         }
         throw new IllegalArgumentException();
         
     }
     
-    public void modificar(T modificacion) throws IllegalArgumentException, IllegalStateException{
+    public void eliminar(T registro) throws IllegalArgumentException, IllegalStateException{
         
-        if(modificacion!=null){
+        if(registro!=null){
             EntityManager em = null;
             try{
-                em = getEntityManager();
+                em = this.getEntityManager();
             }catch(Exception e){
-                throw new IllegalStateException("No se puede obtener persistencia");
             }
             if(em!=null){
-                try{
-                    em.merge(modificacion);
-                    return;
-                }catch(Exception e){
-                    throw new IllegalStateException("El registro no se pudo modificar",e);
-                }
-            }
-        }
-        throw new IllegalArgumentException();
-        
-    }
-    
-    public void eliminar(T id) throws IllegalArgumentException, IllegalStateException{
-        
-        if(id!=null){
-            EntityManager em = null;
-            try{
-                em = getEntityManager();
-            }catch(Exception e){
-                throw new IllegalStateException("No se puede obtener persistencia");
-            }
-            if(em!=null){
-                try{
-                    em.remove(em.merge(id));
-                    return;
-                }catch(Exception e){
-                    throw new IllegalStateException("El registro no se pudo eliminar",e);
-                }
+                em.remove(em.merge(registro));
+                return;
+            }else{
+                throw new IllegalStateException("El registro no se pudo eliminar");
             }
         }
         throw new IllegalArgumentException();
@@ -98,7 +88,7 @@ public abstract class AbstractDataAcces<T> implements Serializable{
         if(id!=null){
             EntityManager em = null;
             try{
-                em = getEntityManager();
+                em = this.getEntityManager();
             }catch(Exception e){
             }
             if(em!=null){
@@ -112,7 +102,7 @@ public abstract class AbstractDataAcces<T> implements Serializable{
     public List<T> findAll() throws IllegalStateException{
         EntityManager em = null;
         try{
-            em = getEntityManager();
+            em = this.getEntityManager();
         }catch(Exception e){
         }
         if(em!=null){
@@ -129,11 +119,11 @@ public abstract class AbstractDataAcces<T> implements Serializable{
     public List<T> findRange(int first, int pageSize) throws IllegalStateException{
         EntityManager em = null;
         try{
-            em = getEntityManager();
+            em = this.getEntityManager();
         }catch(Exception e){
         }
         if(em!=null){
-            TypedQuery consulta = generarConsulta(em);
+            TypedQuery consulta = this.generarConsulta(em);
             consulta.setFirstResult(first);
             consulta.setMaxResults(pageSize);
             List salida = consulta.getResultList();
@@ -159,7 +149,7 @@ public abstract class AbstractDataAcces<T> implements Serializable{
     public Long contar() throws IllegalStateException{
         EntityManager em = null;
         try{
-            em = getEntityManager();
+            em = this.getEntityManager();
         }catch(Exception e){
         }
         if(em!=null){
