@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE resources PUBLIC "-//GlassFish.org//DTD GlasssFish Application Server 3.1 Resource Definitions//EN"
+"http://glassfish.org/dtds7glassfish-resources_1_5.dtd">
+<resources>
+    <jdbc-resource jndi-name="jdbc/baches" pool-name="MySQLPool">
+        <description/>
+    </jdbc-resource>
+</resources>
