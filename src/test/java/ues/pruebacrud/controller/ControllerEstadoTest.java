@@ -171,23 +171,36 @@ public class ControllerEstadoTest {
         System.out.println("findAll");
         EntityManager mockEM = Mockito.mock(EntityManager.class);
         TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
-        ControllerEstado mockCE = Mockito.mock(ControllerEstado.class);
+        CriteriaBuilder mockCB = Mockito.mock(CriteriaBuilder.class);
+        CriteriaQuery mockCQ = Mockito.mock(CriteriaQuery.class);
         ControllerEstado cut = new ControllerEstado();
         List esperado = new ArrayList();
         
-        mockCE.em = mockEM;
-        try {
-            Mockito.when(mockCE.generarConsulta(mockEM)).thenReturn(mockTQ);
-            Mockito.when(mockTQ.getResultList()).thenReturn(esperado);
-        } catch (Exception e) {
-        }
+        Mockito.when(mockEM.getCriteriaBuilder()).thenReturn(mockCB);
+        Mockito.when(mockCB.createQuery(Estado.class)).thenReturn(mockCQ);
+        Mockito.when(mockEM.createQuery(mockCQ)).thenReturn(mockTQ);
+        Mockito.when(mockTQ.getSingleResult()).thenReturn(esperado);
+        
         
         try {
+            Mockito.when(mockTQ.getResultList()).thenReturn(esperado);
+            cut.em = mockEM;
+            List resultado = cut.findAll();
+        } catch (Exception e) {
+        }
+        try {
+            Mockito.when(mockTQ.getResultList()).thenReturn(null);
             cut.em = mockEM;
             List resultado = cut.findAll();
         } catch (Exception e) {
         }
         
+        try {
+            cut.em = mockEM;
+            List obtenido = cut.findAll();
+        } catch (Exception e) {
+        }
+
         ControllerEstado espia = Mockito.spy(ControllerEstado.class);
         espia.em = mockEM;
         
@@ -197,7 +210,6 @@ public class ControllerEstadoTest {
         } catch (Exception e) {
         }
         Mockito.verify(espia,Mockito.times(1)).getEntityManager();
-        
     }
     
     /**
@@ -223,8 +235,7 @@ public class ControllerEstadoTest {
             TypedQuery resultado = cut.generarConsulta(mockEM);
         } catch (Exception e) {
         }
-        
-        
+               
         assertThrows(IllegalArgumentException.class, () ->{
             cut.generarConsulta(null);
         });
@@ -249,15 +260,29 @@ public class ControllerEstadoTest {
         int first = 0;
         int pageSize = 1;
         EntityManager mockEM = Mockito.mock(EntityManager.class);
+        TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
         CriteriaBuilder mockCB = Mockito.mock(CriteriaBuilder.class);
         CriteriaQuery mockCQ = Mockito.mock(CriteriaQuery.class);
-        TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
         ControllerEstado cut = new ControllerEstado();
         List esperado = new ArrayList();
         
-        
-        
-       
+        Mockito.when(mockEM.getCriteriaBuilder()).thenReturn(mockCB);
+        Mockito.when(mockCB.createQuery(Estado.class)).thenReturn(mockCQ);
+        Mockito.when(mockEM.createQuery(mockCQ)).thenReturn(mockTQ);
+        Mockito.when(mockTQ.getSingleResult()).thenReturn(esperado);
+   
+        try {
+            Mockito.when(mockTQ.getResultList()).thenReturn(esperado);
+            cut.em = mockEM;
+            List resultado = cut.findRange(first, pageSize);
+        } catch (Exception e) {
+        }
+        try {
+            Mockito.when(mockTQ.getResultList()).thenReturn(null);
+            cut.em = mockEM;
+            List resultado = cut.findRange(first, pageSize);
+        } catch (Exception e) {
+        }
         
         try {
             cut.em = mockEM;
