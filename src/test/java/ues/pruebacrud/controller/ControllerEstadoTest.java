@@ -5,9 +5,17 @@
  */
 package ues.pruebacrud.controller;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.swing.text.DefaultEditorKit;
 import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.Mockito;
 import ues.pruebacrud.entities.Estado;
@@ -20,7 +28,7 @@ public class ControllerEstadoTest {
     
     public ControllerEstadoTest() {
     }
-
+    
     /**
      * Test of crear method, of class ControllerEstado.
      */
@@ -92,6 +100,7 @@ public class ControllerEstadoTest {
      */
     @org.junit.jupiter.api.Test
     public void testEliminar() throws Exception {
+        System.out.println("eliminar");
         EntityManager mockEM = Mockito.mock(EntityManager.class);
         Date fecha = new Date();
         
@@ -157,67 +166,160 @@ public class ControllerEstadoTest {
     /**
      * Test of findAll method, of class ControllerEstado.
      */
-    /**@org.junit.jupiter.api.Test
+    @org.junit.jupiter.api.Test
     public void testFindAll() throws Exception {
         System.out.println("findAll");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        ControllerEstado instance = (ControllerEstado)container.getContext().lookup("java:global/classes/ControllerEstado");
-        List<Estado> expResult = null;
-        List<Estado> result = instance.findAll();
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
+        ControllerEstado mockCE = Mockito.mock(ControllerEstado.class);
+        ControllerEstado cut = new ControllerEstado();
+        List esperado = new ArrayList();
+        
+        mockCE.em = mockEM;
+        try {
+            Mockito.when(mockCE.generarConsulta(mockEM)).thenReturn(mockTQ);
+            Mockito.when(mockTQ.getResultList()).thenReturn(esperado);
+        } catch (Exception e) {
+        }
+        
+        try {
+            cut.em = mockEM;
+            List resultado = cut.findAll();
+        } catch (Exception e) {
+        }
+        
+        ControllerEstado espia = Mockito.spy(ControllerEstado.class);
+        espia.em = mockEM;
+        
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.findAll();
+        } catch (Exception e) {
+        }
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
+        
+    }
+    
+    /**
+     * Test of generarConsulta method, of class ControllerEstado.
+     */
+    @org.junit.jupiter.api.Test
+    public void testgenerarConsulta() throws Exception {
+        System.out.println("generarConsulta");
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        CriteriaBuilder mockCB = Mockito.mock(CriteriaBuilder.class);
+        CriteriaQuery mockCQ = Mockito.mock(CriteriaQuery.class);
+        TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
+        Root<Estado> mockR = Mockito.mock(Root.class);
+        ControllerEstado cut = new ControllerEstado();
+        
+        Mockito.when(mockEM.getCriteriaBuilder()).thenReturn(mockCB);
+        Mockito.when(mockCB.createQuery(Estado.class)).thenReturn(mockCQ);
+        Mockito.when(mockCQ.from(Estado.class)).thenReturn(mockR);
+        Mockito.when(mockEM.createQuery(mockCQ)).thenReturn(mockTQ);
+        
+        try {
+            cut.em = mockEM;
+            TypedQuery resultado = cut.generarConsulta(mockEM);
+        } catch (Exception e) {
+        }
+        
+        
+        assertThrows(IllegalArgumentException.class, () ->{
+            cut.generarConsulta(null);
+        });
+       
+        ControllerEstado espia = Mockito.spy(ControllerEstado.class);
+        espia.em = mockEM;
+        
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.contar();
+        } catch (Exception e) {
+        }
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
+    }
 
     /**
      * Test of findRange method, of class ControllerEstado.
      */
-    /**@org.junit.jupiter.api.Test
+    @org.junit.jupiter.api.Test
     public void testFindRange() throws Exception {
         System.out.println("findRange");
         int first = 0;
-        int pageSize = 0;
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        ControllerEstado instance = (ControllerEstado)container.getContext().lookup("java:global/classes/ControllerEstado");
-        List<Estado> expResult = null;
-        List<Estado> result = instance.findRange(first, pageSize);
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+        int pageSize = 1;
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        CriteriaBuilder mockCB = Mockito.mock(CriteriaBuilder.class);
+        CriteriaQuery mockCQ = Mockito.mock(CriteriaQuery.class);
+        TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
+        ControllerEstado cut = new ControllerEstado();
+        List esperado = new ArrayList();
+        
+        
+        
+       
+        
+        try {
+            cut.em = mockEM;
+            List resultado = cut.findRange(first, pageSize);
+        } catch (Exception e) {
+        }
+        
+        ControllerEstado espia = Mockito.spy(ControllerEstado.class);
+        espia.em = mockEM;
+        
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.findRange(first, pageSize);
+        } catch (Exception e) {
+        }
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
+    }
 
     /**
      * Test of contar method, of class ControllerEstado.
      */
-    /**@org.junit.jupiter.api.Test
+    @org.junit.jupiter.api.Test
     public void testContar() throws Exception {
         System.out.println("contar");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        ControllerEstado instance = (ControllerEstado)container.getContext().lookup("java:global/classes/ControllerEstado");
-        Long expResult = null;
-        Long result = instance.contar();
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
-
-    /**
-     * Test of getEntityManager method, of class ControllerEstado.
-     */
-    /**@org.junit.jupiter.api.Test
-    public void testGetEntityManager() throws Exception {
-        System.out.println("getEntityManager");
-        EJBContainer container = javax.ejb.embeddable.EJBContainer.createEJBContainer();
-        ControllerEstado instance = (ControllerEstado)container.getContext().lookup("java:global/classes/ControllerEstado");
-        EntityManager expResult = null;
-        EntityManager result = instance.getEntityManager();
-        assertEquals(expResult, result);
-        container.close();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }*/
+        Long esperado = Long.valueOf(1);
+        EntityManager mockEM = Mockito.mock(EntityManager.class);
+        CriteriaBuilder mockCB = Mockito.mock(CriteriaBuilder.class);
+        CriteriaQuery mockCQ = Mockito.mock(CriteriaQuery.class);
+        TypedQuery mockTQ = Mockito.mock(TypedQuery.class);
+        
+        Mockito.when(mockEM.getCriteriaBuilder()).thenReturn(mockCB);
+        Mockito.when(mockCB.createQuery(Long.class)).thenReturn(mockCQ);
+        Mockito.when(mockEM.createQuery(mockCQ)).thenReturn(mockTQ);
+        Mockito.when(mockTQ.getSingleResult()).thenReturn(esperado);
+        ControllerEstado cut = new ControllerEstado();
+        
+        assertThrows(IllegalStateException.class, ()->{
+            cut.contar();
+        });
+        
+        cut.em = mockEM;
+        Long resultado = cut.contar();
+        assertNotNull(resultado);
+        assertEquals(esperado, resultado);
+        
+        try {
+            cut.em = null;
+            cut.contar();
+            fail("EntityManager es nulo");
+        } catch (Exception e) {
+        }
+        
+        ControllerEstado espia = Mockito.spy(ControllerEstado.class);
+        espia.em = mockEM;
+        
+        Mockito.when(espia.getEntityManager()).thenThrow(NullPointerException.class);
+        try {
+            espia.contar();
+        } catch (Exception e) {
+        }
+        Mockito.verify(espia,Mockito.times(1)).getEntityManager();
+    }
+    
     
 }

@@ -106,7 +106,7 @@ public abstract class AbstractDataAcces<T> implements Serializable{
         }catch(Exception e){
         }
         if(em!=null){
-            TypedQuery consulta = generarConsulta(em);
+            TypedQuery consulta = this.generarConsulta(em);
             List salida = consulta.getResultList();
             if(salida!=null){
                 return salida;
@@ -134,6 +134,7 @@ public abstract class AbstractDataAcces<T> implements Serializable{
         }
         throw new IllegalStateException("No se puede obtener persistencia");
     }
+    
     
     protected TypedQuery generarConsulta(EntityManager em){
         if(em!=null){
