@@ -5,4 +5,12 @@
     <jdbc-resource jndi-name="jdbc/baches" pool-name="MySQLPool">
         <description/>
     </jdbc-resource>
+    <jdbc-connection-pool
+        datasource-classname="org.h2.jdbcx.JdbcDataSource"
+        name="MySQLPool"
+        rest-type="javax.sql.DataSource"/>
+    <property name="user" value="sa"/>
+    <property name="password" value=""/>
+    <property name="url"
+              value= "jdbc:h2:mem:h2;TRACE_LEVEL_FILE=3;TRACE_LEVEL_SYSTEM_OUT=3;DB_CLOSE_DELAY=-1"/>
 </resources>

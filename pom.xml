@@ -210,6 +210,9 @@
                             <includes>
                                 <include>**/*IT.java</include>
                             </includes>
+                            <systemPropertyVariables>
+                                <aquillian.launch>payara-embedded-all</aquillian.launch>
+                            </systemPropertyVariables>
                         </configuration>
                     </execution>
                 </executions>

@@ -1,0 +1,13 @@
+<arquillian
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemalocation="http://jboss.org/schema/arquillian  http://jboss.org/schema/arquillian/arquillian_1_0.xsd"><font></font>
+    
+    <engine>
+        <propety name="deploymentExportPath">target/arquillian</propety>
+    </engine>
+    <container qualifier="payara-embedded-all" default="true">
+        <configuration>
+            <property name="resourcesXml">src/test/resources/persistence-arquillian.xml</property>
+        </configuration>
+    </container>
+</arquillian>

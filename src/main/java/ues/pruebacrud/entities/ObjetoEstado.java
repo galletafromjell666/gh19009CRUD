@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
  * @author Sara
  */
 @Entity
-@Table(name = "objeto_estado", catalog = "baches", schema = "")
+@Table(name = "objeto_estado", schema = "public")
 @NamedQueries({
     @NamedQuery(name = "ObjetoEstado.findAll", query = "SELECT o FROM ObjetoEstado o")})
 public class ObjetoEstado implements Serializable {
