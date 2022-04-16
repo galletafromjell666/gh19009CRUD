@@ -25,14 +25,13 @@ public class ControllerEstado extends AbstractDataAcces<Estado> implements Seria
        @PersistenceContext(unitName = "bachePU")
        EntityManager em;
 
-    public ControllerEstado() {
-        super(Estado.class);
-    }
-
     @Override
     public EntityManager getEntityManager() {
         return em;
     }
-      
+    
+    public ControllerEstado() {
+        super(Estado.class);
+    }  
      
 }

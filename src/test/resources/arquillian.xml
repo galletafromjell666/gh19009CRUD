@@ -1,9 +1,10 @@
-<arquillian
+<arquillian 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemalocation="http://jboss.org/schema/arquillian  http://jboss.org/schema/arquillian/arquillian_1_0.xsd"><font></font>
+    xmlns="http://jboss.org/schema/arquillian"
+    xsi:schemaLocation="http://jboss.org/schema/arquillian http://www.jboss.org/schema/arquillian/arquillian_1_0.xsd">
     
     <engine>
-        <propety name="deploymentExportPath">target/arquillian</propety>
+        <property name="deploymentExportPath">target/arquillian</property>
     </engine>
     <container qualifier="payara-embedded-all" default="true">
         <configuration>
