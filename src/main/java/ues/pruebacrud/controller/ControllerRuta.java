@@ -5,12 +5,12 @@
  */
 package ues.pruebacrud.controller;
 
-import ues.pruebacrud.entities.Estado;
 import java.io.Serializable;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import ues.pruebacrud.entities.Ruta;
 
 /**
  *
@@ -18,18 +18,17 @@ import javax.persistence.PersistenceContext;
  */
 @Stateless
 @LocalBean
-public class ControllerEstado extends AbstractDataAcces<Estado> implements Serializable{
+public class ControllerRuta extends AbstractDataAcces<Ruta> implements Serializable{
     
-       @PersistenceContext(unitName = "bachePU")
-       EntityManager em;
+        @PersistenceContext(unitName = "bachePU")
+        EntityManager em;
 
     @Override
     public EntityManager getEntityManager() {
         return em;
     }
     
-    public ControllerEstado() {
-        super(Estado.class);
-    }  
-     
+    public ControllerRuta(){
+        super(Ruta.class);
+    }
 }
