@@ -29,7 +29,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "objeto", schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "Objeto.findAll", query = "SELECT o FROM Objeto o")})
+    @NamedQuery(name = "Objeto.findAll", query = "SELECT o FROM Objeto o"),
+    @NamedQuery(name = "Objeto.findByIdObjeto", query = "SELECT o FROM Objeto o WHERE o.idObjeto = :idObjeto"),
+    @NamedQuery(name = "Objeto.findByTipoObjeto", query = "SELECT o FROM Objeto o WHERE o.idTipoObjeto.idTipoObjeto = :idTipoObjeto ORDER BY o.nombre ASC"),
+    @NamedQuery(name = "Objeto.countByTipoObjeto", query = "SELECT COUNT(o.idObjeto) FROM Objeto o JOIN o.idTipoObjeto t WHERE t.idTipoObjeto = :idTipoObjeto"),
+    @NamedQuery(name = "Objeto.findByLongitud", query = "SELECT o FROM Objeto o WHERE o.longitud = :longitud"),
+    @NamedQuery(name = "Objeto.findByLatitud", query = "SELECT o FROM Objeto o WHERE o.latitud = :latitud"),
+    @NamedQuery(name = "Objeto.findByNombre", query = "SELECT o FROM Objeto o WHERE o.nombre = :nombre"),
+    @NamedQuery(name = "Objeto.findByObservaciones", query = "SELECT o FROM Objeto o WHERE o.observaciones = :observaciones")})
 public class Objeto implements Serializable {
 
     private static final long serialVersionUID = 1L;
