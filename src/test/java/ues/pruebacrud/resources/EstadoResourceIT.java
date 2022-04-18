@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ues.pruebacrud.controller;
+package ues.pruebacrud.resources;
 
 import java.io.StringReader;
 import java.net.URL;
@@ -30,6 +30,8 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.extension.ExtendWith;
+import ues.pruebacrud.controller.AbstractDataAcces;
+import ues.pruebacrud.controller.ControllerEstado;
 import ues.pruebacrud.entities.Estado;
 import ues.pruebacrud.resources.EstadoResource;
 import ues.pruebacrud.resources.JAXRSConfiguration;
