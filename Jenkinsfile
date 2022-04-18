@@ -3,7 +3,7 @@ pipeline{
 	stages{
 		stage('verify'){
         		steps{
-            		sh "mvn -f pom.xml -Parquillian-payara clean verify"
+            		bat "mvn -f pom.xml -Parquillian-payara clean verify"
         		}
     		}
 	}  
