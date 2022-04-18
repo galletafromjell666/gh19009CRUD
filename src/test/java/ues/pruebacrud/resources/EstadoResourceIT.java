@@ -174,4 +174,5 @@ public class EstadoResourceIT {
         Response contar = target.path("estado/contar").request("application/json").get();
         System.out.println("Tabla posee "+contar.readEntity(String.class)+" registros");
     }
+    
 }
