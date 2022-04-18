@@ -1,5 +1,5 @@
 pipeline{
-    agent(label 'master')
+    agent any
 
     stage('test'){
         steps{
