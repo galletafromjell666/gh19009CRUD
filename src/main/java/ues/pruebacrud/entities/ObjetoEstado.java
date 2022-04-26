@@ -29,7 +29,11 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "objeto_estado", schema = "public")
 @NamedQueries({
-    @NamedQuery(name = "ObjetoEstado.findAll", query = "SELECT o FROM ObjetoEstado o")})
+    @NamedQuery(name = "ObjetoEstado.findAll", query = "SELECT o FROM ObjetoEstado o"),
+    @NamedQuery(name = "ObjetoEstado.findByIdObjetoEstado", query = "SELECT o FROM ObjetoEstado o WHERE o.idObjetoEstado = :idObjetoEstado"),
+    @NamedQuery(name = "ObjetoEstado.findByActual", query = "SELECT o FROM ObjetoEstado o WHERE o.actual = :actual"),
+    @NamedQuery(name = "ObjetoEstado.findByFechaAlcanzado", query = "SELECT o FROM ObjetoEstado o WHERE o.fechaAlcanzado = :fechaAlcanzado"),
+    @NamedQuery(name = "ObjetoEstado.findByObservaciones", query = "SELECT o FROM ObjetoEstado o WHERE o.observaciones = :observaciones")})
 public class ObjetoEstado implements Serializable {
 
     private static final long serialVersionUID = 1L;
