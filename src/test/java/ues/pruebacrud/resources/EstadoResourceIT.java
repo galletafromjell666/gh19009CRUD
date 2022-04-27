@@ -101,23 +101,23 @@ public class EstadoResourceIT {
         System.out.println(cuerpoString);
     }
     
-    @Test
-    @Order(3)
-    @RunAsClient
-    public void testContar(){
-        System.out.println("contar");
-        int resultadoEsperado = 200;
-        Client cliente = ClientBuilder.newClient();
-        WebTarget target = cliente.target(url.toString()+"resources/");
-        Response respuesta = target.path("estado/contar").request("application/json").get();
-        Assertions.assertEquals(resultadoEsperado, respuesta.getStatus());
-        String cuerpoString = respuesta.readEntity(String.class);
-        Assertions.assertTrue(!cuerpoString.isEmpty());
-        System.out.println("Tabla posee "+cuerpoString+" registros");
-    }
+//    @Test
+//    @Order(3)
+//    @RunAsClient
+//    public void testContar(){
+//        System.out.println("contar");
+//        int resultadoEsperado = 200;
+//        Client cliente = ClientBuilder.newClient();
+//        WebTarget target = cliente.target(url.toString()+"resources/");
+//        Response respuesta = target.path("estado/contar").request("application/json").get();
+//        Assertions.assertEquals(resultadoEsperado, respuesta.getStatus());
+//        String cuerpoString = respuesta.readEntity(String.class);
+//        Assertions.assertTrue(!cuerpoString.isEmpty());
+//        System.out.println("Tabla posee "+cuerpoString+" registros");
+//    }
     
     @Test
-    @Order(4)
+    @Order(3)
     @RunAsClient
     public void testCrear(){
         System.out.println("crear");
@@ -140,7 +140,7 @@ public class EstadoResourceIT {
     }
     
     @Test
-    @Order(5)
+    @Order(4)
     @RunAsClient
     public void testModificar(){
         System.out.println("modificar");
@@ -161,7 +161,7 @@ public class EstadoResourceIT {
     }
     
     @Test
-    @Order(6)
+    @Order(5)
     @RunAsClient
     public void testEliminar(){
         System.out.println("eliminar");

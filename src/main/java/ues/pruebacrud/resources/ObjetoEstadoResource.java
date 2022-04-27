@@ -53,6 +53,7 @@ public class ObjetoEstadoResource implements Serializable{
     
     @GET
     @Produces({"application/json; charset=UTF-8"})
+    @Path("/range")
     public Response findRange(
             @QueryParam(value="first")
             @DefaultValue(value="0") int first,
