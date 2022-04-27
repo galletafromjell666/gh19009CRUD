@@ -32,4 +32,13 @@ public class ControllerTipoObjeto extends AbstractDataAcces<TipoObjeto> implemen
         super(TipoObjeto.class);
     }
     
+    @Override
+    public Long contar() throws IllegalStateException{
+        try {
+            Thread.sleep(2000);
+        } catch (Exception e) {
+        }
+        return super.contar();
+    }
+    
 }

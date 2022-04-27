@@ -66,7 +66,7 @@ public class ObjetoEstadoResource implements Serializable{
     }
     
     @GET
-    @Path("contar")
+    @Path("/contar")
     public CompletableFuture<Long> contar(){
         return CompletableFuture.supplyAsync(toBean::contar);
     }
