@@ -144,7 +144,7 @@ public class TipoObjetoResource implements Serializable{
     @Consumes({"application/json; charset=UTF-8"})
     @Produces({"application/json; charset=UTF-8"})
     @Path("/{idTipoObjeto}/objeto")
-    public Response modificar(Objeto objeto){
+    public Response modificarObjeto(Objeto objeto){
         toBeanObjeto.modificar(objeto);
         Objeto registro = toBeanObjeto.findById(objeto.getIdObjeto());
         return Response.ok(registro).build();
@@ -152,7 +152,7 @@ public class TipoObjetoResource implements Serializable{
     
     @DELETE
     @Path("/{idTipoObjeto}/objeto/{idObjeto}")
-    public void eliminar(@PathParam("idObjeto")Long id){
+    public void eliminarObjeto(@PathParam("idObjeto")Long id){
         Objeto registro = toBeanObjeto.findById(id);
         toBeanObjeto.eliminar(registro);
     }
