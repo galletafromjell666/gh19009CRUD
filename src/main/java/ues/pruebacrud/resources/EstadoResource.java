@@ -37,6 +37,7 @@ public class EstadoResource implements Serializable{
     
     @GET
     @Produces({"application/json; charset=UTF-8"})
+    @Path("/All")
     public Response findAll(){
         List<Estado> registros = toBean.findAll();
         Long total = toBean.contar();
@@ -53,12 +54,11 @@ public class EstadoResource implements Serializable{
     
     @GET
     @Produces({"application/json; charset=UTF-8"})
-    @Path("/range")
     public Response findRange(
             @QueryParam(value="first")
             @DefaultValue(value="0") int first,
             @QueryParam(value="pageSize")
-            @DefaultValue(value="10") int pageSize){
+            @DefaultValue(value="30") int pageSize){
         List<Estado> registros = toBean.findRange(first, pageSize);
         Long total = toBean.contar();
         return Response.ok(registros)

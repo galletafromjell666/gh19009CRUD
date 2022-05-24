@@ -53,5 +53,5 @@ public class ObjetoBean extends AbstractDataAcces<Objeto> implements Serializabl
             return ((Long) q.getSingleResult()).intValue();
         }
         return 0;
-    }
+    }   
 }

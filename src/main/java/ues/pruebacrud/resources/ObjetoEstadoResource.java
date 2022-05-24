@@ -37,6 +37,7 @@ public class ObjetoEstadoResource implements Serializable{
     
     @GET
     @Produces({"application/json; charset=UTF-8"})
+    @Path("/All")
     public Response findAll(){
         List<ObjetoEstado> registros = toBean.findAll();
         Long total = toBean.contar();
@@ -46,19 +47,18 @@ public class ObjetoEstadoResource implements Serializable{
     @GET
     @Path("/{idObjetoEstado}")
     @Produces({"application/json; charset=UTF-8"})
-    public ObjetoEstado findById(@PathParam("idObjetoEstado")int id){
+    public ObjetoEstado findById(@PathParam("idObjetoEstado")Long id){
         ObjetoEstado registro = toBean.findById(id);
         return registro;
     }
     
     @GET
     @Produces({"application/json; charset=UTF-8"})
-    @Path("/range")
     public Response findRange(
             @QueryParam(value="first")
             @DefaultValue(value="0") int first,
             @QueryParam(value="pageSize")
-            @DefaultValue(value="10") int pageSize){
+            @DefaultValue(value="30") int pageSize){
         List<ObjetoEstado> registros = toBean.findRange(first, pageSize);
         Long total = toBean.contar();
         return Response.ok(registros)
@@ -92,7 +92,7 @@ public class ObjetoEstadoResource implements Serializable{
     
     @DELETE
     @Path("/{idObjetoEstado}")
-    public void eliminar(@PathParam("idObjetoEstado")int id){
+    public void eliminar(@PathParam("idObjetoEstado")Long id){
         ObjetoEstado registro = toBean.findById(id);
         toBean.eliminar(registro);
     }

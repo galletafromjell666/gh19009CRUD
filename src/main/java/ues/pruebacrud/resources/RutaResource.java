@@ -37,6 +37,7 @@ public class RutaResource implements Serializable{
     
     @GET
     @Produces({"application/json; charset=UTF-8"})
+    @Path("/All")
     public Response findAll(){
         List<Ruta> registros = toBean.findAll();
         Long total = toBean.contar();
@@ -46,19 +47,18 @@ public class RutaResource implements Serializable{
     @GET
     @Path("/{idRuta}")
     @Produces({"application/json; charset=UTF-8"})
-    public Ruta findById(@PathParam("idRuta")int id){
+    public Ruta findById(@PathParam("idRuta")Long id){
         Ruta registro = toBean.findById(id);
         return registro;
     }
     
     @GET
     @Produces({"application/json; charset=UTF-8"})
-    @Path("/range")
     public Response findRange(
             @QueryParam(value="first")
             @DefaultValue(value="0") int first,
             @QueryParam(value="pageSize")
-            @DefaultValue(value="10") int pageSize){
+            @DefaultValue(value="30") int pageSize){
         List<Ruta> registros = toBean.findRange(first, pageSize);
         Long total = toBean.contar();
         return Response.ok(registros)
@@ -92,7 +92,7 @@ public class RutaResource implements Serializable{
     
     @DELETE
     @Path("/{idRuta}")
-    public void eliminar(@PathParam("idRuta")int id){
+    public void eliminar(@PathParam("idRuta")Long id){
         Ruta registro = toBean.findById(id);
         toBean.eliminar(registro);
     }
