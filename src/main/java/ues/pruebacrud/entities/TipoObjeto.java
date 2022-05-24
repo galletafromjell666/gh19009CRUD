@@ -45,8 +45,8 @@ public class TipoObjeto implements Serializable {
     @Column(name = "fecha_creacion")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
-    @OneToMany(mappedBy = "idTipoObjeto")
-    private List<Objeto> objetoList;
+    //@OneToMany(mappedBy = "idTipoObjeto")
+    //private List<Objeto> objetoList;
 
     public TipoObjeto() {
     }
@@ -85,13 +85,13 @@ public class TipoObjeto implements Serializable {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public List<Objeto> getObjetoList() {
-        return objetoList;
-    }
+    //public List<Objeto> getObjetoList() {
+    //    return objetoList;
+    //}
 
-    public void setObjetoList(List<Objeto> objetoList) {
-        this.objetoList = objetoList;
-    }
+    //public void setObjetoList(List<Objeto> objetoList) {
+    //    this.objetoList = objetoList;
+    //}
 
     @Override
     public int hashCode() {

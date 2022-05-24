@@ -31,6 +31,8 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "ObjetoEstado.findAll", query = "SELECT o FROM ObjetoEstado o"),
     @NamedQuery(name = "ObjetoEstado.findByIdObjetoEstado", query = "SELECT o FROM ObjetoEstado o WHERE o.idObjetoEstado = :idObjetoEstado"),
+    @NamedQuery(name = "ObjetoEstado.findByEstado", query = "SELECT o FROM ObjetoEstado o WHERE o.idEstado = :idEstado"),
+    @NamedQuery(name = "ObjetoEstado.findByObjeto", query = "SELECT o FROM ObjetoEstado o WHERE o.idObjeto = :idObjeto"),
     @NamedQuery(name = "ObjetoEstado.findByActual", query = "SELECT o FROM ObjetoEstado o WHERE o.actual = :actual"),
     @NamedQuery(name = "ObjetoEstado.findByFechaAlcanzado", query = "SELECT o FROM ObjetoEstado o WHERE o.fechaAlcanzado = :fechaAlcanzado"),
     @NamedQuery(name = "ObjetoEstado.findByObservaciones", query = "SELECT o FROM ObjetoEstado o WHERE o.observaciones = :observaciones")})

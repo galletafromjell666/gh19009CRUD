@@ -50,8 +50,8 @@ public class Estado implements Serializable {
     @Lob
     @Column(name = "observaciones", length = 65535)
     private String observaciones;
-    //@OneToMany(mappedBy = "idEstado")
-    //private List<ObjetoEstado> objetoEstadoList;
+    @OneToMany(mappedBy = "idEstado")
+    private List<ObjetoEstado> objetoEstadoList;
 
     public Estado() {
     }
@@ -99,13 +99,13 @@ public class Estado implements Serializable {
         this.observaciones = observaciones;
     }
 
-    //public List<ObjetoEstado> getObjetoEstadoList() {
-    //    return objetoEstadoList;
-    //}
+    public List<ObjetoEstado> getObjetoEstadoList() {
+        return objetoEstadoList;
+    }
 
-    //public void setObjetoEstadoList(List<ObjetoEstado> objetoEstadoList) {
-    //    this.objetoEstadoList = objetoEstadoList;
-    //}
+    public void setObjetoEstadoList(List<ObjetoEstado> objetoEstadoList) {
+        this.objetoEstadoList = objetoEstadoList;
+    }
 
     @Override
     public int hashCode() {
