@@ -71,7 +71,7 @@ public class EstadoResourceIT {
         int resultadoEsperado = 200;
         Client cliente = ClientBuilder.newClient();
         WebTarget target = cliente.target(url.toString()+"resources/");
-        Response respuesta = target.path("estado").request("application/json").get();
+        Response respuesta = target.path("v1/estado/All").request("application/json").get();
         Assertions.assertEquals(resultadoEsperado, respuesta.getStatus());
         String totalTexto = respuesta.getHeaderString("Total-registros");
         Assertions.assertNotEquals(Integer.valueOf(0), Integer.valueOf(totalTexto));
@@ -94,7 +94,7 @@ public class EstadoResourceIT {
         int resultadoEsperado = 200;
         Client cliente = ClientBuilder.newClient();
         WebTarget target = cliente.target(url.toString()+"resources/");
-        Response respuesta = target.path("estado/2").request("application/json").get();
+        Response respuesta = target.path("v1/estado/2").request("application/json").get();
         Assertions.assertEquals(resultadoEsperado, respuesta.getStatus());
         String cuerpoString = respuesta.readEntity(String.class);
         Assertions.assertTrue(!cuerpoString.isEmpty());
@@ -129,13 +129,13 @@ public class EstadoResourceIT {
         nuevo.setObservaciones("Sin observacion");
         nuevo.setIdEstado(8);
         WebTarget target = cliente.target(url.toString()+"resources/");
-        Response respuesta = target.path("estado").request("application/json").post(Entity.json(nuevo));
+        Response respuesta = target.path("v1/estado").request("application/json").post(Entity.json(nuevo));
         System.out.println(respuesta.getStatus());
         Assertions.assertEquals(resultadoEsperado, respuesta.getStatus());
         String cuerpoString = respuesta.readEntity(String.class);
         Assertions.assertTrue(!cuerpoString.isEmpty());
         System.out.println(cuerpoString);
-        Response contar = target.path("estado/contar").request("application/json").get();
+        Response contar = target.path("v1/estado/contar").request("application/json").get();
         System.out.println("Tabla posee "+contar.readEntity(String.class)+" registros");
     }
     
@@ -152,7 +152,7 @@ public class EstadoResourceIT {
         nuevo.setObservaciones("Sin observacion");
         nuevo.setIdEstado(8);
         WebTarget target = cliente.target(url.toString()+"resources/");
-        Response respuesta = target.path("estado").request("application/json").put(Entity.json(nuevo));
+        Response respuesta = target.path("v1/estado").request("application/json").put(Entity.json(nuevo));
         System.out.println(respuesta.getStatus());
         Assertions.assertEquals(resultadoEsperado, respuesta.getStatus());
         String cuerpoString = respuesta.readEntity(String.class);
@@ -168,10 +168,10 @@ public class EstadoResourceIT {
         int resultadoEsperado = 204;
         Client cliente = ClientBuilder.newClient();
         WebTarget target = cliente.target(url.toString()+"resources/");
-        Response respuesta = target.path("estado/8").request("application/json").delete();
+        Response respuesta = target.path("v1/estado/8").request("application/json").delete();
         System.out.println(respuesta.getStatus());
         Assertions.assertEquals(resultadoEsperado, respuesta.getStatus());
-        Response contar = target.path("estado/contar").request("application/json").get();
+        Response contar = target.path("v1/estado/contar").request("application/json").get();
         System.out.println("Tabla posee "+contar.readEntity(String.class)+" registros");
     }
     

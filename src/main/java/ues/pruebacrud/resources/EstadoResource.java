@@ -6,6 +6,7 @@
 package ues.pruebacrud.resources;
 
 import java.io.Serializable;
+import java.net.URI;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import javax.enterprise.context.RequestScoped;
@@ -20,7 +21,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import ues.pruebacrud.controller.ControllerEstado;
 import ues.pruebacrud.entities.Estado;
 
@@ -28,7 +31,7 @@ import ues.pruebacrud.entities.Estado;
  *
  * @author Sara
  */
-@Path("estado")
+@Path("v1/estado")
 @RequestScoped
 public class EstadoResource implements Serializable{
     
@@ -75,19 +78,21 @@ public class EstadoResource implements Serializable{
     @POST
     @Consumes({"application/json; charset=UTF-8"})
     @Produces({"application/json; charset=UTF-8"})
-    public Response crear(Estado estado){
+    public Response crear(Estado estado, @Context UriInfo uriInfo){
         toBean.crear(estado);
         Estado registro = toBean.findById(estado.getIdEstado());
-        return Response.ok(registro).build();
+        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(registro.getIdEstado())).build();
+        return Response.created(uri).entity(registro).build();
     }
     
     @PUT
     @Consumes({"application/json; charset=UTF-8"})
     @Produces({"application/json; charset=UTF-8"})
-    public Response modificar(Estado estado){
+    public Response modificar(Estado estado, @Context UriInfo uriInfo){
         toBean.modificar(estado);
         Estado registro = toBean.findById(estado.getIdEstado());
-        return Response.ok(registro).build();
+        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(registro.getIdEstado())).build();
+        return Response.created(uri).entity(registro).build();
     }
     
     @DELETE

@@ -6,6 +6,7 @@
 package ues.pruebacrud.resources;
 
 import java.io.Serializable;
+import java.net.URI;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -21,7 +22,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.UriInfo;
 import ues.pruebacrud.controller.ControllerObjeto;
 import ues.pruebacrud.controller.ControllerTipoObjeto;
 import ues.pruebacrud.entities.Objeto;
@@ -31,7 +34,7 @@ import ues.pruebacrud.entities.TipoObjeto;
  *
  * @author Sara
  */
-@Path("tipoObjeto")
+@Path("v1/tipoObjeto")
 @RequestScoped
 public class TipoObjetoResource implements Serializable{
     
@@ -80,19 +83,21 @@ public class TipoObjetoResource implements Serializable{
     @POST
     @Consumes({"application/json; charset=UTF-8"})
     @Produces({"application/json; charset=UTF-8"})
-    public Response crear(TipoObjeto tipoObjeto){
+    public Response crear(TipoObjeto tipoObjeto, @Context UriInfo uriInfo){
         toBean.crear(tipoObjeto);
         TipoObjeto registro = toBean.findById(tipoObjeto.getIdTipoObjeto());
-        return Response.ok(registro).build();
+        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(registro.getIdTipoObjeto())).build();
+        return Response.created(uri).entity(registro).build();
     }
     
     @PUT
     @Consumes({"application/json; charset=UTF-8"})
     @Produces({"application/json; charset=UTF-8"})
-    public Response modificar(TipoObjeto tipoObjeto){
+    public Response modificar(TipoObjeto tipoObjeto, @Context UriInfo uriInfo){
         toBean.modificar(tipoObjeto);
         TipoObjeto registro = toBean.findById(tipoObjeto.getIdTipoObjeto());
-        return Response.ok(registro).build();
+        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(registro.getIdTipoObjeto())).build();
+        return Response.created(uri).entity(registro).build();
     }
     
     @DELETE
@@ -106,11 +111,10 @@ public class TipoObjetoResource implements Serializable{
     @Path("/{idTipoObjeto}/objeto")
     @Produces({"application/json; charset=UTF-8"})
     public Response findByObjeto(@PathParam("idTipoObjeto")int id,
-                                 @QueryParam(value="first")
-                                 @DefaultValue(value="0") int first,
-                                 @QueryParam(value="pageSize")
-                                 @DefaultValue(value="30") int pageSize
-                                 ){
+            @QueryParam(value="first")
+            @DefaultValue(value="0") int first,
+            @QueryParam(value="pageSize")
+            @DefaultValue(value="30") int pageSize){
         List<Objeto> registros = toBeanObjeto.findByIdTipoObjeto(id, first, pageSize);
         return Response.ok(registros).build();
     }
@@ -130,24 +134,40 @@ public class TipoObjetoResource implements Serializable{
         return Response.ok(Collections.EMPTY_LIST).build();
     }
     
+    @GET
+    @Path("/{idTipoObjeto}/objeto/contar")
+    public Response contarObjeto(@PathParam("idTipoObjeto")int id){
+        List<Objeto> registros = toBeanObjeto.findAll();
+        int totalTipo=0;
+        for(int ite=0; ite<registros.size(); ite++){
+            int idTipo = registros.get(ite).getIdTipoObjeto().getIdTipoObjeto();
+            if(id==idTipo){
+                totalTipo++;
+            }
+        }
+        return Response.ok(totalTipo).build();
+    }
+    
     @POST
     @Consumes({"application/json; charset=UTF-8"})
     @Produces({"application/json; charset=UTF-8"})
     @Path("/{idTipoObjeto}/objeto")
-    public Response crearObjeto(Objeto objeto){
+    public Response crearObjeto(Objeto objeto, @Context UriInfo uriInfo){
         toBeanObjeto.crear(objeto);
         Objeto registro = toBeanObjeto.findById(objeto.getIdObjeto());
-        return Response.ok(registro).build();
+        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(registro.getIdObjeto())).build();
+        return Response.created(uri).entity(registro).build();
     }
     
     @PUT
     @Consumes({"application/json; charset=UTF-8"})
     @Produces({"application/json; charset=UTF-8"})
     @Path("/{idTipoObjeto}/objeto")
-    public Response modificarObjeto(Objeto objeto){
+    public Response modificarObjeto(Objeto objeto, @Context UriInfo uriInfo){
         toBeanObjeto.modificar(objeto);
         Objeto registro = toBeanObjeto.findById(objeto.getIdObjeto());
-        return Response.ok(registro).build();
+        URI uri = uriInfo.getAbsolutePathBuilder().path(String.valueOf(registro.getIdObjeto())).build();
+        return Response.created(uri).entity(registro).build();
     }
     
     @DELETE
