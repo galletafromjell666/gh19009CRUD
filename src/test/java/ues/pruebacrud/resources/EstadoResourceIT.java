@@ -121,7 +121,7 @@ public class EstadoResourceIT {
     @RunAsClient
     public void testCrear(){
         System.out.println("crear");
-        int resultadoEsperado = 200;
+        int resultadoEsperado = 201;
         Client cliente = ClientBuilder.newClient();
         Estado nuevo = new Estado();
         nuevo.setFechaCreacion(new Date());
@@ -144,7 +144,7 @@ public class EstadoResourceIT {
     @RunAsClient
     public void testModificar(){
         System.out.println("modificar");
-        int resultadoEsperado = 200;
+        int resultadoEsperado = 201;
         Client cliente = ClientBuilder.newClient();
         Estado nuevo = new Estado();
         nuevo.setFechaCreacion(new Date());
