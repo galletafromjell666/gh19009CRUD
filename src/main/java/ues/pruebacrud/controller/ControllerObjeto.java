@@ -14,6 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import ues.pruebacrud.entities.Objeto;
+import ues.pruebacrud.exception.DataNotFoundException;
 
 /**
  *
@@ -47,6 +48,9 @@ public class ControllerObjeto extends AbstractDataAcces<Objeto> implements Seria
             q.setParameter("idTipoObjeto", idTipoObjeto);
             q.setFirstResult(first);
             q.setMaxResults(pageSize);
+            if(q.getResultList().size()==0){
+                throw new DataNotFoundException("Entity Tipo Objeto with id "+idTipoObjeto+" not found");
+            }
             return q.getResultList();
             
         }

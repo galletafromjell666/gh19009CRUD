@@ -13,6 +13,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import ues.pruebacrud.exception.DataNotFoundException;
 
 /**
  *
@@ -92,6 +93,9 @@ public abstract class AbstractDataAcces<T> implements Serializable{
             }catch(Exception e){
             }
             if(em!=null){
+                if(em.find(clase, id)==null){
+                    throw new DataNotFoundException("Entity with id "+id+" not found");
+                }
                 return (T) em.find(clase, id);
             }
             throw new IllegalStateException("No se puede obtener persistencia");
