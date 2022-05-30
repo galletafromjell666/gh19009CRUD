@@ -1,5 +1,4 @@
- 
-#!/bin/sh
+ #!/bin/sh
 #
 echo "\npost commit hook - triggering jenkins\n"
 curl -X POST -L --user admin:11830247e70ee80e67395a371da580c528 \
