@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -9,10 +10,29 @@ pipeline {
     stages {
         stage('verify'){
         		steps{
-                    git 'https://github.com/IsaGher/gh19009CRUD.git'
+                    git 'https://github.com/galletafromjell666/gh19009CRUD.git'
             		sh "mvn -f pom.xml -Parquillian-payara clean verify"
         		}
     		}
+    		
+    		stage('SonarQube analysis') {
+            steps {
+                withSonarQubeEnv('SonarQube') {
+                    sh "mvn clean verify sonar:sonar -Dsonar.login=e0da0e50f2a908f33972d293c47031979ed839a2"
+                }
+            }
+        }
+    
+    stage("Quality Gate") {
+            steps {
+                timeout(time: 1, unit: 'HOURS') {
+                    // Parameter indicates whether to set pipeline to UNSTABLE if Quality Gate fails
+                    // true = set pipeline to UNSTABLE, false = don't
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+    
     		stage('test'){
         		steps{
             		sh "mvn clean test"
@@ -40,5 +60,6 @@ pipeline {
                 }
             }  
     		}
+    		        
     }
 }
