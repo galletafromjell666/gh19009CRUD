@@ -58,8 +58,8 @@ public class Objeto implements Serializable {
     @JoinColumn(name = "id_tipo_objeto", referencedColumnName = "id_tipo_objeto")
     @ManyToOne
     private TipoObjeto idTipoObjeto;
-    @OneToMany(mappedBy = "idObjeto")
-    private List<ObjetoEstado> objetoEstadoList;
+//    @OneToMany(mappedBy = "idObjeto")
+//    private List<ObjetoEstado> objetoEstadoList;
 
     public Objeto() {
     }
@@ -125,13 +125,13 @@ public class Objeto implements Serializable {
         this.idTipoObjeto = idTipoObjeto;
     }
 
-    public List<ObjetoEstado> getObjetoEstadoList() {
-        return objetoEstadoList;
-    }
-
-    public void setObjetoEstadoList(List<ObjetoEstado> objetoEstadoList) {
-        this.objetoEstadoList = objetoEstadoList;
-    }
+//    public List<ObjetoEstado> getObjetoEstadoList() {
+//        return objetoEstadoList;
+//    }
+//
+//    public void setObjetoEstadoList(List<ObjetoEstado> objetoEstadoList) {
+//        this.objetoEstadoList = objetoEstadoList;
+//    }
 
     @Override
     public int hashCode() {

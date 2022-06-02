@@ -41,7 +41,7 @@ public class TipoObjeto implements Serializable {
     @Column(name = "id_tipo_objeto", nullable = false)
     private Integer idTipoObjeto;
     @Column(name = "activo")
-    private Integer activo;
+    private Boolean activo;
     @Column(name = "fecha_creacion")
     @Temporal(TemporalType.DATE)
     private Date fechaCreacion;
@@ -55,7 +55,7 @@ public class TipoObjeto implements Serializable {
         this.idTipoObjeto = idTipoObjeto;
     }
 
-    public TipoObjeto(Integer idTipoObjeto, Integer activo, Date fechaCreacion) {
+    public TipoObjeto(Integer idTipoObjeto, Boolean activo, Date fechaCreacion) {
         this.idTipoObjeto = idTipoObjeto;
         this.activo = activo;
         this.fechaCreacion = fechaCreacion;
@@ -69,11 +69,11 @@ public class TipoObjeto implements Serializable {
         this.idTipoObjeto = idTipoObjeto;
     }
 
-    public Integer getActivo() {
+    public Boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(Integer activo) {
+    public void setActivo(Boolean activo) {
         this.activo = activo;
     }
 
