@@ -48,6 +48,7 @@ public class ObjetoBean extends AbstractDataAcces<Objeto> implements Serializabl
     
     public int countByIdTipoObjeto(final Integer idTipoObjeto){
         if(this.em != null && idTipoObjeto != null){
+            
             Query q = em.createNamedQuery("Objeto.countByTipoObjeto");
             q.setParameter("idTipoObjeto", idTipoObjeto);
             return ((Long) q.getSingleResult()).intValue();
