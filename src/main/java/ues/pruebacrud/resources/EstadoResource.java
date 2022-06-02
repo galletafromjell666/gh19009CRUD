@@ -43,6 +43,7 @@ public class EstadoResource implements Serializable{
     @Path("/All")
     public Response findAll(){
         List<Estado> registros = toBean.findAll();
+        registros.stream().forEach(u -> u.setNombre(u.getNombre().toUpperCase()));
         Long total = toBean.contar();
         return Response.ok(registros).header("Total-registros", total).build();
     }
